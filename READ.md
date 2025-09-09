@@ -51,9 +51,13 @@ The settings.py is like Django project's control center that determines how Djan
 4. How does database migration work in Django?
 
 Migration is the process of propagating the model changes into the database schema without the need to delete or recreate the entire database. The three step guide to making model changes are:
+
 I. Modifying the models in models.py
+
 II. Run 'python manage.py makemigrations' to create migrations for those changes
+
 III. Run 'python manage.py migrate' to apply the changes to the database. 
+
 Makemigrations creates migration files based on the model changes, meanwhile migrate actually applies those migration files to the database, hence it updates the schema accordingly.
 
 
