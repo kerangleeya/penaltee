@@ -5,6 +5,7 @@ Class: PBD KI
 1. Explain how you implemented the checklist above step-by-step (not just by following the tutorial).
 
 My first step was to create and set up the Django project in a new GitHub repository:
+
 I. Firstly, I created a new directory/folder on my laptop with my application name, which is "penaltee".
 
 II. I opened Windows Powershell, typed 'cd', then dragged my penaltee folder to the Windows Powershell so it would change the directory into the penaltee directory. To initialise my Django project, I created a virtual enviroment by typing 'python -m venv env' so the application is independent meaning that it will not clash with other versions on the same computer. This virtual environment can be activated by typing the command 'env\Scripts\activate' and deactivated using 'deactivate'. Since I needed to set up the Django project, I activated the virtual environment in the Windows Powershell.
