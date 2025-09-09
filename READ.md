@@ -39,7 +39,7 @@ VII. Finally, I save all changes to GitHub and PWS by add, commit, and push to b
 
 
 2. Create a diagram showing the client request to the Django-based web application and its response, and explain the relationship between urls.py, views.py, models.py, and the HTML file in the diagram.
-
+![alt text](diagram_num2.jpg)
 The diagram shows how a client request is handled in Django. First, when the user makes a URL Request, then the urls.py checks the URL and forwards it to the right view in views.py. The view now will interact with the model (models.py) to read or write the necessary data from the database. Once the data is ready, the view returns the user an appropriate template from the HTML file which formats the retrieved data for display. Finally, Django gives the rendered HTML as an HTTP response to the client's browser.
 
 
