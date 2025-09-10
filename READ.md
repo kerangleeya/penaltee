@@ -35,7 +35,7 @@ V. Then, I needed to configure the URL routing. I created "urls.py" inside the m
 
 VI. I ran the Django project using the command 'python manage.py runserver' then I viewed the page by opening http://localhost:8000
 
-VII. Finally, I save all changes to GitHub and PWS by add, commit, and push to both origin master and pws master. Hence, my Django project was completed!
+VII. Finally, I save all changes to GitHub and PWS by add, commit, and push to both origin master and pws master. Hence, my Django project was completed with the deployment url: https://shelia-vellicita-penaltee.pbp.cs.ui.ac.id/
 
 
 2. Create a diagram showing the client request to the Django-based web application and its response, and explain the relationship between urls.py, views.py, models.py, and the HTML file in the diagram.
