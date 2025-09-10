@@ -2,6 +2,8 @@ Name: Shelia Vellicita
 Student ID: 2406453606
 Class: PBD KI
 
+Deployment link: https://shelia-vellicita-penaltee.pbp.cs.ui.ac.id/
+
 1. Explain how you implemented the checklist above step-by-step (not just by following the tutorial).
 
 My first step was to create and set up the Django project in a new GitHub repository:
