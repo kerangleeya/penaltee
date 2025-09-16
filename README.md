@@ -74,34 +74,51 @@ Overall, the tutorial sessions have been going really well! However, I did encou
 Aside from this, the tutorials are great and the teaching assistants are very helpful, responsive, and provide clear guidance! Thank you kakak-kakak! 
 
 
+
 Assignment 3
 
 
 1. Why do we need data delivery in implementing a platform?
 
-p
+Data delivery is the process of transferring data from one place to another. It is important in implementing a platform because it ensures that the right data gets to the right user in time. Platforms need real-time data delivery, timely updates, and efficient backend data retrieval. Those features cannot function without implementing a data delivery system. Data delivery also connects the frontend or user interface with the backend or database which is very crucial to create a dynamic and interactive platform. Therefore, data delivery acts like a backbone of functionality, performance, and user experience.
+
 
 2. In your opinion, which is better, XML or JSON? Why is JSON more popular than XML?
 
-p
+Based on readability, JSON is easier to understand and work with the data format as it has a clearer code structure which makes it easier to read, debug, and spot errors. The reason is because JSON uses key-value syntax meanwhile XML uses nested tags that can be hard to scan at first glance.
+JSON is more lightweight, making it ideal for web and mobile applications. In addition, its native compatibility with JavaScript and modern APIs boosts its popularity. On the other hand, XML is more complex and less suited for modern data exchange even though it is still useful for certain legacy systems and document-based structures.
+
 
 3. What is the purpose of the is_valid() method in Django forms, and why do we need it?
 
-p
+The is_valid() method in Django forms is used to check whether the data submitted through the form is valid. This means that it will ensure the correct data type is submitted for each input and every required input fields are filled. When it is called, it will perform a comprehensive validation process on the submitted data. Therefore, it prevents processing or saving invalid data, automatically gives feedback to users when the inputs are incorrect, and ensure that the application works with safe and clean data.
+
 
 4. Why do we need a csrf_token when making forms in Django? What can happen if we don't include a csrf_token in a Django form? How can this be exploited by an attacker?
 
-p
+The csrf_token needs to be included in forms so the server can verify that the request is coming from the authenticated user and not from a malicious source. If we don't use csrf_token, it can lead to serious security issues. The server won't be able to distinguish between valid requests and forged requests, so it might process the malicious request. An attacker can send a link to the authenticated user to submit an information, since there is no csrf_token, it will not match with the token generated for the user at the starting of the session, so it will throw a 403 Forbidden error page. By including a csrf_token, the server can only accept request with a valid token, preventing attackers from tricking users into submitting unauthorized actions.
+
 
 5. Explain how you implemented the checklist above step-by-step (not just following the tutorial).
 
-p
+Firstly, I created a base template for the website as a consistent skeleton across all pages by adding a 'templates' directory in the main project folder and creating a 'base.html' file inside it that contains the essential HTML structure. Hence, it helps maintain the visual throughout the website. Next, I updated the template settings to include the path to the templates folder. 
+
+Then, I created a form to add a new product by making a new file 'forms.py' in the main directory that will receive new product data. The data are models that have been made from the previous assignment, which are name, price, description, thumbnail, category, is_featured, specifying the fields of product model that will be used in the form. Then, I opened views.py to update and add some functions, which are modifying show_main so it can fetch all product objects that are stored in the database, making create_product to generate a form that can automatically add product data when submitted, and show_product to fetch product object based on its primary key (product_id) and if no object is found, a 404 page is returned. Then, I added URL paths to the urlpatterns in the urls.py file. 
+
+After that, I updated the code in the main.html and inside the content block to display the product data along with the buttons "Add Product" and "Details". Next, I created an input form and product details page under the main/templates directory. Then, I added my PWS project URL entry to CSRF_TRUSTED_ORIGINS inside the settings.py in the root project directory. 
+
+Next, I turned my Django data into APIs using XML and JSON. In views.py, I imported HttpResponse and serializers, created a show_xml function that retrieves all product objects, serializes them to XML, and returns the data with the proper content type. I added a URL pattern for that function in the urls.py so the XML data can be accessed at /xml/. Then, I created a similar show_json function to serialize and return the product data in JSON format and added its URL pattern at /json/ in urls.py.
+
+After that, I made two functions, show_xml_by_id and show_json_by_id, which accepts a product_id to return specific product data in XML or JSON. I used try-except blocks to handle cases where the ID doesn't exist by returning a 404 response. Then, I added URL petterns with ID parameters to access those endpoints. Finally, I ran the Django server to test the XML and JSON endpoints, both for all data and individual product items by the ID.
+
+Then, I did add, commit, push for all changes. For the last checklist, I put those link into Postman to check the results.
+
 
 6. Do you have any feedback for the teaching assistants for Tutorial 2?
 
 Teaching assistants were helpful but there were a lot of typos in the code for Tutorial 2 which created many errors and delays. However, they are still very nice and good. :D
+
 <img width="1920" height="1080" alt="Screenshot (469)" src="https://github.com/user-attachments/assets/bf1dae7a-18c2-40f2-8be5-98c86e1612e5" />
 <img width="1920" height="1080" alt="Screenshot (472)" src="https://github.com/user-attachments/assets/4999554c-5611-4722-9fb1-92f299b91ce5" />
 <img width="1920" height="1080" alt="Screenshot (471)" src="https://github.com/user-attachments/assets/031b30b1-ae80-4bc9-b5cd-02274ca904fe" />
 <img width="1920" height="1080" alt="Screenshot (470)" src="https://github.com/user-attachments/assets/8bc95e14-dc40-4cc9-9170-10bee7ee0aa1" />
-
