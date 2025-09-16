@@ -118,7 +118,8 @@ Then, I did add, commit, push for all changes. For the last checklist, I put tho
 
 Teaching assistants were helpful but there were a lot of typos in the code for Tutorial 2 which created many errors and delays. However, they are still very nice and good. :D
 
-<img width="1920" height="1080" alt="Screenshot (469)" src="https://github.com/user-attachments/assets/bf1dae7a-18c2-40f2-8be5-98c86e1612e5" />
-<img width="1920" height="1080" alt="Screenshot (472)" src="https://github.com/user-attachments/assets/4999554c-5611-4722-9fb1-92f299b91ce5" />
-<img width="1920" height="1080" alt="Screenshot (471)" src="https://github.com/user-attachments/assets/031b30b1-ae80-4bc9-b5cd-02274ca904fe" />
-<img width="1920" height="1080" alt="Screenshot (470)" src="https://github.com/user-attachments/assets/8bc95e14-dc40-4cc9-9170-10bee7ee0aa1" />
+Postman Screenshots:
+<img width="1920" height="1026" alt="Screenshot (469)" src="https://github.com/user-attachments/assets/de0dff0f-c439-4d03-86ec-8a3aad207f98" />
+<img width="1920" height="1038" alt="Screenshot (472)" src="https://github.com/user-attachments/assets/cb8bcc6b-a2c1-4a88-acf3-7e3cc983ec05" />
+<img width="1920" height="1026" alt="Screenshot (471)" src="https://github.com/user-attachments/assets/f13d8b84-fec8-4a44-a802-848daac00152" />
+<img width="1920" height="1031" alt="Screenshot (470)" src="https://github.com/user-attachments/assets/9d08e090-0e3d-40b7-92f8-8009a7645d47" />
