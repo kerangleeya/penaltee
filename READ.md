@@ -72,3 +72,31 @@ From my perspective, Django framework has many built-in features so it is easier
 
 Overall, the tutorial sessions have been going really well! However, I did encounter some difficulties with certain instructions, particularly when an early step involved migrate/makemigrate then the second step is about creating unit tests, and when I attempted to run it, some errors occurred because it turned out that I needed to migrate it again. This difficulty may not be the same for all students, as I am still trying to get familiar with Django and web development. 
 Aside from this, the tutorials are great and the teaching assistants are very helpful, responsive, and provide clear guidance! Thank you kakak-kakak! 
+
+
+Assignment 3
+
+
+1. Why do we need data delivery in implementing a platform?
+
+p
+
+2. In your opinion, which is better, XML or JSON? Why is JSON more popular than XML?
+
+p
+
+3. What is the purpose of the is_valid() method in Django forms, and why do we need it?
+
+p
+
+4. Why do we need a csrf_token when making forms in Django? What can happen if we don't include a csrf_token in a Django form? How can this be exploited by an attacker?
+
+p
+
+5. Explain how you implemented the checklist above step-by-step (not just following the tutorial).
+
+p
+
+6. Do you have any feedback for the teaching assistants for Tutorial 2?
+
+Teaching assistants were helpful but there were a lot of typos in the code for Tutorial 2 which created many errors and delays. However, they are still very nice and good. :D

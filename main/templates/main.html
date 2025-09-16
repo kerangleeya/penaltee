@@ -1,26 +1,50 @@
-<html>
-    <head>
-        <title>Welcome to Penaltee!</title>
-        <style>
-            li {
-                font-family: sans-serif;
-                font-size: small;
-                display: inline-block; 
-                margin-right: 20px; 
-                color: #a0635dbb;}
-        </style>
-    </head>
-    <body>
-        <nav>
-            <ul style="padding-left:10px; padding-top:5px;">
-                <li>Home</li>
-                <li>Products</li>
-            </ul>
-        </nav>
-        <hr style="border:1px solid; color:rgb(122, 16, 16);">
-        <h1 style="font-family:Verdana; font-weight:bold; color:rgb(133, 12, 12); text-align:center;">{{ app_name }}</h1>
-        <hr style="width:40%; border:0.5px solid; color:rgb(187, 175, 175);">
-        <h3 style="font-family:courier; margin-bottom:0;">By {{ name }}</h3>
-        <p style="font-family:monospace; margin-top:2px;" >Class {{ class }}</p>
-    </body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    li {
+        font-family: sans-serif;
+        font-size: small;
+        display: inline-block; 
+        margin-right: 20px; 
+        color: #a0635dbb;}
+</style>
+<nav>
+    <ul style="padding-left:10px; padding-top:5px;">
+        <li>Home</li>
+        <li>Products</li>
+    </ul>
+</nav>
+<hr style="border:1px solid; color:rgb(122, 16, 16);">
+<h1 style="font-family:Verdana; font-weight:bold; color:rgb(133, 12, 12); text-align:center;">{{ app_name }}</h1>
+<hr style="width:40%; border:0.5px solid; color:rgb(187, 175, 175);">
+<h3 style="font-family:courier; margin-bottom:0;">By {{ name }}</h3>
+<p style="font-family:monospace; margin-top:2px;" >Class {{ class }}</p>
+
+<a href="{% url 'main:create_product' %}">
+  <button>+ Add Product</button>
+</a>
+
+{% for product in product_list %}
+<div>
+  <h2><a href="{% url 'main:show_product' product.id %}">{{ product.name }}</a></h2>
+
+  <p>{% if product.is_featured %}
+    <b>Featured</b>{% endif %}
+    <i>{{ product.created_at|date:"d M Y H:i" }}</i> 
+    </p>
+
+  {% if product.thumbnail %}
+  <img src="{{ product.thumbnail }}" alt="thumbnail" width="150" height="100">
+  <br />
+  {% endif %}
+
+  <p>{{ product.description|truncatewords:25 }}...</p>
+  <p>{{ product.price }}</p>
+
+  <p><a href="{% url 'main:show_product' product.id %}"><button>Read More</button></a></p>
+</div>
+
+<hr>
+{% endfor %}
+
+{% endblock content %}
