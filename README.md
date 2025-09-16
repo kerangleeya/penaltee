@@ -100,3 +100,8 @@ p
 6. Do you have any feedback for the teaching assistants for Tutorial 2?
 
 Teaching assistants were helpful but there were a lot of typos in the code for Tutorial 2 which created many errors and delays. However, they are still very nice and good. :D
+<img width="1920" height="1080" alt="Screenshot (469)" src="https://github.com/user-attachments/assets/bf1dae7a-18c2-40f2-8be5-98c86e1612e5" />
+<img width="1920" height="1080" alt="Screenshot (472)" src="https://github.com/user-attachments/assets/4999554c-5611-4722-9fb1-92f299b91ce5" />
+<img width="1920" height="1080" alt="Screenshot (471)" src="https://github.com/user-attachments/assets/031b30b1-ae80-4bc9-b5cd-02274ca904fe" />
+<img width="1920" height="1080" alt="Screenshot (470)" src="https://github.com/user-attachments/assets/8bc95e14-dc40-4cc9-9170-10bee7ee0aa1" />
+
