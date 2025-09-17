@@ -2,17 +2,15 @@
 {% block content %}
 <p><a href="{% url 'main:show_main' %}"><button>← Back to product List</button></a></p>
 
-<h1>{{ product.name }}</h1>
-<p>{% if product.is_featured %}
-    <b>Featured</b>{% endif %}
+{% if product.is_featured %}
+    <h3 style="margin-bottom: 0px; color:rgb(97, 97, 97)">Featured</h3>{% endif %}
     <i>{{ product.created_at|date:"d M Y, H:i" }}</i> 
-</p>
+<h1 style="margin-top: 0px;">{{ product.name }}</h1>
 
 {% if product.thumbnail %}
 <img src="{{ product.thumbnail }}" alt="product thumbnail" width="300">
-<br /><br />
 {% endif %}
-
-<p>{{ product.content }}</p>
+<h2 style="padding-top: 0px;">Rp{{ product.price }}</h2>
+<p>{{ product.description }}</p>
 
 {% endblock content %}
