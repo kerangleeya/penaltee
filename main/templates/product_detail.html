@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<p><a href="{% url 'main:show_main' %}"><button>← Back to product List</button></a></p>
+<p><a href="{% url 'main:show_main' %}"><button>← Back to Product List</button></a></p>
 
 {% if product.is_featured %}
     <h3 style="margin-bottom: 0px; color:rgb(97, 97, 97)">Featured</h3>{% endif %}
