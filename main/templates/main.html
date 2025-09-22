@@ -155,6 +155,19 @@
     <button style="margin-top:10px;">+ Add Product</button>
 </a>
 
+<a href="{% url 'main:logout' %}">
+  <button>Logout</button>
+</a>
+
+<h5>Last login session: {{ last_login }}</h5>
+
+<a href="?filter=all">
+    <button type="button">All Products</button>
+</a>
+<a href="?filter=my">
+    <button type="button">My Products</button>
+</a> 
+
 <hr style="border:1px solid; color:rgb(218, 218, 218); margin-top:15px;">
 
 <div class="grid-container">
