@@ -2,31 +2,123 @@
 
 {% block meta %}
 <title>Login</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Verdana", sans-serif;
+}
+
+.container {
+  height: 100vh;
+  width: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(101, 69, 69)
+}
+
+.card {
+  border-radius: 10px;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
+  width: 400px;
+  height: auto;
+  background-color: #ffffff;
+  padding: 20px 30px;
+}
+
+.card_title {
+  text-align: center;
+  padding: 10px;
+}
+
+.card_title h1 {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.card_title span {
+  font-size: 14px;
+}
+
+.card_title a {
+  color: #4796ff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.form input {
+  margin: 10px 0;
+  width: 100%;
+  background-color: #e2e2e2;
+  border: none;
+  outline: none;
+  padding: 12px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.form button {
+  background-color: #800000;
+  color: #ffffff;
+  font-size: 16px;
+  outline: none;
+  border-radius: 5px;
+  border: none;
+  padding: 12px 20px;
+  width: 100%;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.form button:hover {
+  background-color: #ae5252;
+}
+
+.card_terms {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.card_terms ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 13px;
+  color: red;
+}
+</style>
 {% endblock meta %}
 
 {% block content %}
-<div class="login">
-  <h1>Login</h1>
+<div class="container">
+  <div class="card">
+    <div class="card_title">
+      <h1>Login</h1>
+    </div>
 
-  <form method="POST" action="">
-    {% csrf_token %}
-    <table>
-      {{ form.as_table }}
-      <tr>
-        <td></td>
-        <td><input class="btn login_btn" type="submit" value="Login" /></td>
-      </tr>
-    </table>
-  </form>
+    <div class="form">
+      <form method="POST" action="">
+        {% csrf_token %}
+        <input type="text" name="username" id="username" placeholder="Username" required />
+        <input type="password" name="password" id="password" placeholder="Password" required />
+        <p style="padding-bottom: 15px; font-size: smaller;">Don't have an account yet? <a href="{% url 'main:register' %}">Register Now</a></p>
+        <button type="submit">Login</button>
+      </form>
+    </div>
 
-  {% if messages %}
-  <ul>
-    {% for message in messages %}
-    <li>{{ message }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %} Don't have an account yet?
-  <a href="{% url 'main:register' %}">Register Now</a>
+    {% if messages %}
+    <div class="card_terms">
+      <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+  </div>
 </div>
-
 {% endblock content %}

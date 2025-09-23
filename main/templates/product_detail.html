@@ -13,8 +13,8 @@
 <h2 style="padding-top: 0px;">Rp{{ product.price }}</h2>
 <p>{{ product.description }}</p>
 
-{% if news.user %}
-    <p>Author: {{ news.user.username }}</p>
+{% if product.user %}
+    <p>Author: {{ product.user.username }}</p>
 {% else %}
     <p>Author: Anonymous</p>
 {% endif %}
