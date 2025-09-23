@@ -123,3 +123,40 @@ Postman Screenshots:
 <img width="1920" height="1026" alt="Screenshot (471)" src="https://github.com/user-attachments/assets/f13d8b84-fec8-4a44-a802-848daac00152" />
 <img width="1920" height="1026" alt="Screenshot (469)" src="https://github.com/user-attachments/assets/de0dff0f-c439-4d03-86ec-8a3aad207f98" />
 <img width="1920" height="1031" alt="Screenshot (470)" src="https://github.com/user-attachments/assets/9d08e090-0e3d-40b7-92f8-8009a7645d47" />
+
+
+
+Assignment 4
+
+
+1. What is Django's AuthenticationForm? Explain its advantages and disadvantages.
+
+AuthenticationFrom in Django is the built-in form class for handling user login with fields for username and password. It is in 'django.contrib.auth.forms' and usually used with Django's autentication system, which is 'django.contrib.auth'. The main advantages are that it is secure, easy to use, integrates seamlessly with Django’s session and authentication system, and can be extended to fit specific needs while providing built-in error handling. However, it has limited customization, poor frontend styling, rigidity when utilizing custom user models with multiple IDs, and a lack of sophisticated security features, such as CAPTCHA or two-factor authentication. Although it is generally a practical and trustworthy place to start for authentication, projects with unconventional login procedures frequently need for customization.
+
+
+2. What is the difference between authentication and authorization? How does Django implement the two concepts
+
+Authentication verifies who a user is, while authorization determines what the user is allowed to do. In Django, authentication is implemented through the built-in User model, secure password handling, session management, and helper functions like authenticate() and login(), whereas authorization is performed using a system of permissions and groups associated with users, as well as tools like decorators and class-based mixins that restrict or allow access based on a user's permissions.
+
+
+3. What are the benefits and drawbacks of using sessions and cookies in storing the state of a web application
+
+Sessions are more secure and can handle larger amounts of data because sensitive information stays on the server, and work well with authentication systems since they save data on the server and simply record a session ID in the client's cookie. However, sessions increase server load and require proper session management. On the other hand, cookies store data directly on the client’s browser, which reduces server-side storage needs and allows quick access to small pieces of state, like preferences or tokens, but they are limited in size, can be manipulated by the user, and are more vulnerable to attacks if not secured properly. In conclusion, sessions are safer and better for sensitive or large data, while cookies are lightweight and efficient for small, non-critical client-side state, but each has constraints between security, scalability, and performance.
+
+
+4. In web development, is the usage of cookies secure by default, or is there any potential risk that we should be aware of? How does Django handle this problem?
+
+In web development, cookies are not secure by default because they are stored on the client’s browser and can be intercepted if sent over insecure connections or stolen/manipulated through attacks, so developers must take precautions. In order to prevent this, Django implements a number of security measures. These include setting session cookies to 'HttpOnly' by default so that JavaScript cannot access them, allowing cookies to be marked as 'Secure' to guarantee that they are only sent over HTTPS, offering CSRF protection through cookies with configurable security flags, and supporting cookies that are cryptographically signed to prohibit tampering. For optimal security, developers must still enable and configure settings like 'SESSION_COOKIE_SECURE', 'CSRF_COOKIE_SECURE', and 'SameSite'.  Therefore, even if cookies are dangerous by default, Django reduces them with built-in safeguards.
+
+
+5. Explain how you implemented the checklist above step-by-step (not just following the tutorial).
+
+Firstly, I prepared and activated the virtual environment, then opened views.py in the main app and imported UserCreationForm and messages. Then, I created a register function that returns a blank form on GET and processes form data on POST to initialize a form with UserCreationForm(request.POST), check validity with form.is_valid(), save the user, add a success message, and redirect to the login page. After that, I created a register.html template with {{ form.as_table }} and {% csrf_token %}, then added the route path("register/", register, name="register") to urls.py.
+
+For login, I imported AuthenticationForm, authenticate, and login in views.py. Then, I wrote a login_user function that initializes the form with POST data, validates it, retrieves the user, calls login(request, user), and redirects to the main page. For GET, I made a blank AuthenticationForm and rendered it to login.html. Thereafter, I added the route path('login/', login_user, name='login') to urls.py. For logout, I imported logout, created a logout_user function that calls logout(request) and redirects to login, then added a logout button in main.html and wrote the route path('logout/', logout_user, name='logout').
+
+To restrict access, I imported login_required and added @login_required(login_url='/login') to functions like show_main and show_product. This will ensure only authenticated users can access them, and unauthenticated users will be redirected to the login page. For tracking last login, I modified the login_user to create a redirect response after login, set a cookie like last_login, and return the response. Then, I included the cookie to show_main in the context, displayed it in main.html, and updated logout_user to delete the cookie before redirecting.
+
+To associate content with users, first I imported User from django.contrib.auth.models in models.py and added a foreign key field user = models.ForeignKey(User, on_delete=models.CASCADE, null=True) to the model. Since I modified the models.py, I ran migrations. In the create_product, after validating the form, I used form.save(commit=False), assigned the current user with entry.user = request.user, saved, and redirected it. In show_main, I made a filter between all objects and only the current user’s objects using a query parameter then updated the template to provide filter buttons. Therefore, it will display the author’s username if it exists, or “Anonymous” otherwise.
+
+Finally, I ran the server and tested the flow of registering a new user, logging in, creating new objects that are tied to the logged-in user, confirming that the filter shows either all or only the current user’s items, checking that the last login time is stored and displayed from cookies, and confirming it is cleared after logout.
