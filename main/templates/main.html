@@ -1,197 +1,69 @@
 {% extends 'base.html' %}
+    {% load static %}
 
-{% block content %}
-<style>
-    :root {
-        --primary-color: #D83344;
-        --text-color: #333333;
-        --background-color: #f5f5f7;
-        --card-background: #ffffff;
-    }
+    {% block meta %}
+    <title>Penaltee</title>
+    {% endblock meta %}
 
-    body {
-        font-family: 'Inter', sans-serif;
-        background-color: var(--background-color);
-        color: var(--text-color);
-    }
+    {% block content %}
+    {% include 'navbar.html' %}
+    <div class="bg-gray-200 w-full pt-16 min-h-screen">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-    nav ul {
-        list-style: none;
-        padding-left: 10px;
-        padding-top: 0%;
-    }
-
-    nav li {
-        font-family: sans-serif;
-        font-size: small;
-        display: inline-block;
-        margin-right: 20px;
-        color: #a0635dbb;
-    }
-
-    .grid-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        justify-content: flex-start;
-    }
-
-    .product-card {
-        background-color: var(--card-background);
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        width: 250px;
-        flex: 0 0 auto;
-    }
-
-    .product-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-    }
-
-    .product-card__image {
-        height: 180px;
-        padding-bottom: 0%;
-        overflow: hidden;
-    }
-
-    .product-card__image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.3s ease;
-    }
-
-    .product-card:hover .product-card__image img {
-        transform: scale(1.05);
-    }
-
-    .product-card__info {
-        padding-left: 10px;
-        padding-right: 10px;
-        padding-top: 0px;
-        padding-bottom: 10px;
-    }
-
-    .product-card__featured {
-    margin-top: 15px;
-    margin-bottom: 0px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: #888;
-    }
-
-    .product-card__title {
-        font-size: 1.2rem;
-        font-weight: 700;
-        margin-top: 4px;
-        margin-bottom: 0px;
-        color: var(--text-color);
-    }
-
-    .product-card__description {
-        font-size: 0.85rem;
-        color: #666;
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-
-    .product-card__price-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .product-card__price {
-        font-size: 1rem;
-        font-weight: 600;
-        color: var(--primary-color);
-    }
-
-    .product-card__btn {
-        background-color: var(--primary-color);
-        color: white;
-        border: none;
-        padding: 6px 14px;
-        border-radius: 50px;
-        font-size: 0.8rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-    .product-card__btn:hover {
-        background-color: #C71729;
-    }
-
-    @media (max-width: 768px) {
-        .product-card {
-            width: 100%;
-        }
-
-        .grid-container {
-            justify-content: center;
-        }
-    }
-</style>
-
-<nav>
-    <ul>
-        <li>Home</li>
-        <li>Products</li>
-    </ul>
-</nav>
-
-<hr style="border:1px solid; color:rgb(122, 16, 16);">
-<h1 style="font-family:Verdana; font-weight:bold; color:rgb(133, 12, 12); text-align:center;">{{ app_name }}</h1>
-<hr style="width:40%; border:0.5px solid; color:rgb(187, 175, 175);">
-
-<h3 style="font-family:courier; margin-bottom:0;">By {{ name }}</h3>
-<p style="font-family:monospace; margin-top:2px;">Class {{ class }}</p>
-
-<a href="{% url 'main:create_product' %}">
-    <button style="margin-top:10px;">+ Add Product</button>
-</a>
-
-<a href="{% url 'main:logout' %}">
-  <button>Logout</button>
-</a>
-
-<h5>Last login session: {{ last_login }}</h5>
-
-<a href="?filter=all">
-    <button type="button">All Products</button>
-</a>
-<a href="?filter=my">
-    <button type="button">My Products</button>
-</a> 
-
-<hr style="border:1px solid; color:rgb(218, 218, 218); margin-top:15px;">
-
-<div class="grid-container">
-    {% for product in product_list %}
-    <div class="product-card">
-        <div class="product-card__image">
-            <img src="{{ product.thumbnail }}" alt="Image of {{ product.name }}">
-        </div>
-        <div class="product-card__info">
-            {% if product.is_featured %} 
-                <h5 class="product-card__featured">Featured</h5>{% endif %} 
-                <i>{{ product.created_at|date:"d M Y H:i" }}
-                </i>
-            <h2 class="product-card__title">{{ product.name }}</h2>
-            <p class="product-card__description">{{ product.description|truncatewords:15 }}</p>
-            <div class="product-card__price-row">
-                <span class="product-card__price">Rp{{ product.price }}</span>
-                <a href="{% url 'main:show_product' product.id %}">
-                    <button class="product-card__btn">Details</button>
-                </a>
+        <!-- Header Section -->
+        <div class="mb-8">
+          <div class="relative hidden md:block">
+            <img src="{% static 'image/banner.png' %}" alt="Penaltee header banner" class="w-full h-auto rounded-lg">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
+              <h1 class="text-white text-4xl font-bold">Penaltee</h1>
+              <p class="text-white text-lg mt-2">Get the best value and the products you love, all in one place</p>
             </div>
+          </div>
+          <div class="relative block md:hidden">
+            <img src="{% static 'image/banner-mobile.png' %}" alt="Penaltee header banner" class="w-full h-auto rounded-lg">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
+              <h1 class="text-white text-3xl font-bold">Penaltee</h1>
+              <p class="text-white text-sm mt-1">Get the best value and the products you love, all in one place</p>
+            </div>
+          </div>
         </div>
-    </div>
-    {% endfor %}
-</div>
 
-{% endblock content %}
+        <!-- Filter Section -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 bg-white rounded-md border border-gray-200 p-4">
+          <div class="flex space-x-3 mb-4 sm:mb-0">
+            <a href="?" class="{% if request.GET.filter == 'all' or not request.GET.filter  %} bg-red-800 text-white{% else %}bg-white text-gray-500 border border-gray-300{% endif %} px-4 py-2 rounded-full font-medium transition-colors hover:bg-red-600 hover:text-white">
+              All product
+            </a>
+            <a href="?filter=my" class="{% if request.GET.filter == 'my' %} bg-red-800 text-white{% else %}bg-white text-gray-700 border border-gray-300{% endif %} px-4 py-2 rounded-full font-medium transition-colors hover:bg-red-600 hover:text-white">
+              My product
+            </a>
+          </div>
+          {% if user.is_authenticated %}
+            <div class="text-sm text-gray-500">
+              Last login: {{ last_login }}
+            </div>
+          {% endif %}
+        </div>
+
+        <!-- Product Grid -->
+        {% if not product_list %}
+          <div class="bg-white rounded-lg border border-gray-200 p-12 text-center">
+            <div class="w-32 h-32 mx-auto mb-4">
+              <img src="{% static 'image/no-product.png' %}" alt="No product available" class="w-full h-full object-contain">
+            </div>
+            <h3 class="text-lg font-medium text-gray-900 mb-2">No Products Available</h3>
+            <p class="text-gray-500 mb-6">Create your first product to get started today!</p>
+            <a href="{% url 'main:create_product' %}" class="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">
+              Create product
+            </a>
+          </div>
+        {% else %}
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 items-center">
+            {% for product in product_list %}
+              {% include 'card_product.html' with product=product %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endblock content %}

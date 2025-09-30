@@ -160,3 +160,44 @@ To restrict access, I imported login_required and added @login_required(login_ur
 To associate content with users, first I imported User from django.contrib.auth.models in models.py and added a foreign key field user = models.ForeignKey(User, on_delete=models.CASCADE, null=True) to the model. Since I modified the models.py, I ran migrations. In the create_product, after validating the form, I used form.save(commit=False), assigned the current user with entry.user = request.user, saved, and redirected it. In show_main, I made a filter between all objects and only the current user’s objects using a query parameter then updated the template to provide filter buttons. Therefore, it will display the author’s username if it exists, or “Anonymous” otherwise.
 
 Finally, I ran the server and tested the flow of registering a new user, logging in, creating new objects that are tied to the logged-in user, confirming that the filter shows either all or only the current user’s items, checking that the last login time is stored and displayed from cookies, and confirming it is cleared after logout. Then, I created two user accounts on the website and made 3 products for each user.
+
+
+
+Assignment 5
+
+
+1. CSS Selector Priority: If multiple CSS selectors target an HTML element, explain the priority order for CSS selector selection
+
+When multiple CSS selectors target an HTML element, it would follow a priority order to determine which style to apply, where inline styles have the highest priority, followed by ID selectors, then class selectors, and lastly element selectors. Inline styles are styles that are written directly inside the tag of an HTML element using the 'style' attribute. They have the highest priority because they are applied specifically to that element. Next are ID selectors, which are used to style an element with a unique ID attribute. In CSS, they are written with a # symbol. Since ID selectors should be unique within a page, they carry the second strongest priority. The third one is class selectors that target elements that share the same class attribute, and they are written with a dot (.). Class selectors are reusable across multiple elements, giving them flexibility but slightly less weight than ID selectors. Finally, element selectors, which refer to HTML tags themselves, such as. They provide the broadest scope and therefore have the lowest level of influence in the hierarchy.
+
+
+2. Responsive Design: Why is responsive design important in web application development? Provide examples of applications that have and haven't implemented responsive design. Explain the reasons behind your examples.
+
+Responsive design is crucial in web application development because users access websites or applications on a wide variety of devices with different screen sizes, from mobile phones and tablets to laptops and large monitors. A responsive design ensures that the layout, text, and interactive elements automatically adapt to the screen size. Providing a consistent and user-friendly experience. Without responsive design, users may face issues such as unreadable text, buttons that are too small to click, or cards that are cropped, which can discourage engagement. 
+
+For example, consider the difference between the old version of Instagram and the updated version. In the past, Instagram’s layout was not optimized for tablets. Instead of adapting to the larger screen, it simply displayed the mobile version, which was designed for a narrower 16:9 phone display. As a result, when users opened Instagram on a tablet, especially in landscape orientation, the content appeared shrunken, leaving empty space on the sides, and making the interface uncomfortable to use. In contrast, the new Instagram update has introduced a responsive layout for tablets. The design now includes side navigation bars and restructured content that scales appropriately to the wider display, making text and buttons easier to read and interact with. Therefore, Instagram has made the application now comfortable to use on every device. This improvement highlights the importance of responsive design in enhancing usability.
+
+
+3. Box Model: Explain the differences between margin, border, and padding, and how to implement them
+
+The CSS box model consists of margin, border, and padding, they each control different spacing around an element. Margin is the space outside the element that separates it from others, and it can be set using 'margin: 30px;'. Meanwhile, border is the outline that surrounds the padding area and encloses the element's content, for example 'border: 2px solid black;'. Lastly, padding is the space inside the element between the content and the border, which can be added with padding: 10px;. Together, they define how an element is displayed in relation to its content and surrounding elements, as illustrated in the picture below.
+
+*Input picture!*
+
+
+4. Layout Systems: Explain the concepts of flexbox and grid layout along with their uses
+
+Flexbox and grid are two CSS layout systems that make arranging elements easier and more flexible. Flexbox is designed for one-dimensional layouts, meaning it works best when aligning items in a single row or a single column. It is useful for creating responsive navigation bars, centering elements, or evenly spacing items. On the other hand, grid layout is two-dimensional, allowing developers to control both rows and columns simultaneously. It is ideal for designing full-page layouts, image galleries, or complex structures where items need to align both vertically and horizontally. In short, Flexbox is best for simpler, linear arrangements, while grid is more powerful for structured and multi-dimensional layouts.
+
+
+5. Implementation Steps: Explain how you implemented the above checklist step-by-step (not just following the tutorial)
+
+In this assignment, I used Tailwind to design my Django application. I began by modifying the base.html file in the templates folder, where I added the <meta name="viewport"> tag so the page could adapt to mobile devices and ensure a responsive design. I also connected Tailwind to the template by including its CDN script.
+
+Next, I implemented two functions, which are edit and delete. The edit function allows users to update their own product details, while the delete function removes products they created. I wrote the logic for these features in views.py, created edit_product.html and delete_product.html, and defined their paths in urls.py. I also updated main.html to include buttons for editing and deleting products.
+
+Afterward, I designed a navigation bar by creating a navbar.html file in the templates folder. I built the visual structure of the navbar there and then linked it to main.html using Django’s {% include 'navbar.html' %} tag so it appears consistently across the app.
+
+To configure static files, I added the WhiteNoise middleware in settings.py right below SecurityMiddleware, which enables Django to serve static files in production. I also set up the STATIC_URL, STATICFILES_DIRS, and STATIC_ROOT variables. Then, I created a 'static' folder in the root directory with a 'css' subfolder. In the css folder, I placed a global.css file for custom styles. This stylesheet was linked in base.html so its rules could be applied throughout the templates.
+
+Finally, I explored CSS and HTML by finding resources online to deepen my understanding and then applied that knowledge to design each page of my application.
