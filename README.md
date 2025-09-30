@@ -1,8 +1,14 @@
 Name: Shelia Vellicita
+
 Student ID: 2406453606
+
 Class: PBD KI
 
 Deployment link: https://shelia-vellicita-penaltee.pbp.cs.ui.ac.id/
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Assignment 2
 
 1. Explain how you implemented the checklist above step-by-step (not just by following the tutorial).
 
@@ -74,6 +80,7 @@ Overall, the tutorial sessions have been going really well! However, I did encou
 Aside from this, the tutorials are great and the teaching assistants are very helpful, responsive, and provide clear guidance! Thank you kakak-kakak! 
 
 
+--------------------------------------------------------------------------------------------------------------------------------------------
 
 Assignment 3
 
@@ -125,6 +132,7 @@ Postman Screenshots:
 <img width="1920" height="1031" alt="Screenshot (470)" src="https://github.com/user-attachments/assets/9d08e090-0e3d-40b7-92f8-8009a7645d47" />
 
 
+--------------------------------------------------------------------------------------------------------------------------------------------
 
 Assignment 4
 
@@ -162,6 +170,7 @@ To associate content with users, first I imported User from django.contrib.auth.
 Finally, I ran the server and tested the flow of registering a new user, logging in, creating new objects that are tied to the logged-in user, confirming that the filter shows either all or only the current user’s items, checking that the last login time is stored and displayed from cookies, and confirming it is cleared after logout. Then, I created two user accounts on the website and made 3 products for each user.
 
 
+--------------------------------------------------------------------------------------------------------------------------------------------
 
 Assignment 5
 
@@ -182,7 +191,8 @@ For example, consider the difference between the old version of Instagram and th
 
 The CSS box model consists of margin, border, and padding, they each control different spacing around an element. Margin is the space outside the element that separates it from others, and it can be set using 'margin: 30px;'. Meanwhile, border is the outline that surrounds the padding area and encloses the element's content, for example 'border: 2px solid black;'. Lastly, padding is the space inside the element between the content and the border, which can be added with padding: 10px;. Together, they define how an element is displayed in relation to its content and surrounding elements, as illustrated in the picture below.
 
-*Input picture!*
+![S__4464649](https://github.com/user-attachments/assets/85199f05-9e6b-498f-81b4-4d9ebd1575b2)
+
 
 
 4. Layout Systems: Explain the concepts of flexbox and grid layout along with their uses
