@@ -1,86 +1,95 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Product Detail - Penaltee</title>
+{% endblock meta %}
 
 {% block content %}
 <div class="bg-gray-50 w-full min-h-screen py-8">
-  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-
-    <!-- Back button -->
-    <div class="mb-6">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Back Navigation -->
+    <div class="mb-4">
       <a href="{% url 'main:show_main' %}" 
-         class="inline-flex items-center text-gray-600 hover:text-gray-900 font-medium transition-colors">
+         class="text-gray-600 hover:text-gray-900 font-medium transition-colors">
         ← Back to Home
       </a>
     </div>
 
-    <!-- Product layout -->
-    <div class="bg-white rounded-2xl shadow-md p-6 sm:p-8 grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-      
-      <!-- Image -->
-      <div>
-        {% if product.thumbnail %}
-          <img src="{{ product.thumbnail }}" 
-               alt="product thumbnail" 
-               class="w-full max-h-[500px] object-cover rounded-lg shadow-sm">
-        {% else %}
-          <div class="w-full h-64 bg-gray-200 rounded-lg flex items-center justify-center text-gray-500">
-            No Image
-          </div>
-        {% endif %}
+    <!-- Loading State -->
+    <div id="loading-state" class="bg-white rounded-2xl shadow-md p-12 text-center">
+      <svg class="animate-spin h-8 w-8 text-green-600 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+      </svg>
+      <p class="text-gray-600 mt-3">Loading product detail...</p>
+    </div>
+
+    <!-- Error State -->
+    <div id="error-state" class="bg-white rounded-2xl shadow-md p-12 text-center hidden">
+      <div class="w-16 h-16 mx-auto mb-4">
+        <div class="text-red-500 text-5xl">Error</div>
+      </div>
+      <h3 class="text-lg font-medium text-gray-900 mb-2">Failed to load product</h3>
+      <p class="text-gray-500">Please try again later.</p>
+    </div>
+
+    <!-- Product Detail -->
+    <article id="article-content" 
+            class="bg-white rounded-2xl shadow-md p-6 sm:p-8 grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+
+      <!-- Left: Image -->
+      <div id="featured-image-container" 
+          class="flex justify-center items-center">
+        <div class="w-full h-[450px] flex justify-center items-center bg-gray-50 rounded-xl overflow-hidden">
+          <img id="featured-image" src="" alt="" 
+              class="w-full max-h-[500px] object-cover rounded-lg shadow-sm">
+        </div>
       </div>
 
-    <!-- Product info -->
-    <div class="flex flex-col justify-between h-full">
+      <!-- Right: Content -->
+      <div class="flex flex-col justify-between h-full">
+        
+        <!-- Upper Content -->
+        <div>
+          <!-- Badges -->
+          <div id="badges-container" class="flex items-center space-x-2 mb-3 gap-2"></div>
 
-    <!-- Details -->
-    <div>
-        <div class="flex items-center space-x-2 mb-2">
-        {% if product.is_featured %}
-        <span class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-800 text-sm font-medium">
-          Featured
-        </span>
-        {% endif %}
-        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium bg-green-600 text-green-100">
-            {{ product.category }}
-        </span>
+          <!-- Name -->
+          <h1 id="article-name" class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 leading-tight"></h1>
+
+          <!-- Price -->
+          <p id="article-price" class="text-red-600 font-bold text-xl sm:text-2xl mb-4"></p>
+
+          <!-- Description -->
+          <p id="article-description-text" class="text-gray-700 text-base sm:text-lg mb-4"></p>
+
+          <!-- Author -->
+          <p class="text-gray-500 text-sm">
+            By <span id="article-author" class="font-medium text-gray-700">shell</span>
+          </p>
         </div>
 
-    <h1 class="text-3xl font-bold text-gray-900">{{ product.name }}</h1>
-    <p class="text-2xl font-bold text-red-600 mb-8">
-      Rp{{ product.price }}
-    </p>
+        <!-- Bottom Buttons -->
+        <div class="flex gap-3 pt-6 mt-6 border-t border-gray-200">
+          <a id="edit-link" href="#" 
+            class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md font-medium transition-colors">
+            Edit
+          </a>
+          <button id="delete-button"
+                  class="bg-gray-600 hover:bg-gray-700 text-white px-5 py-2 rounded-md font-medium transition-colors"
+                  onclick="document.getElementById('deleteModal').classList.remove('hidden')">
+            Delete
+          </button>
+        </div>
+      </div>
+    </article>
 
-    <p class="text-gray-700 leading-relaxed mb-1">
-      {{ product.description }}
-    </p>
-    <p class="text-gray-500 text-sm">
-      By 
-      <span class="font-medium text-gray-700">
-        {% if product.user %}
-          {{ product.user.username }}
-        {% else %}
-          Anonymous
-        {% endif %}
-      </span>
-    </p>
-  </div>
-
-  <!-- Buttons -->
-  <div class="flex gap-3 pt-6 border-t border-gray-200">
-    {% if user.is_authenticated and product.user == user %}
-      <a href="{% url 'main:edit_product' product.id %}" 
-         class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-md font-medium transition-colors">
-        Edit
-      </a>
-      <button
-        onclick="document.getElementById('deleteModal').classList.remove('hidden')"
-        class="bg-gray-600 hover:bg-gray-700 text-white font-medium rounded-md px-4 py-2">
-        Delete
-      </button>
-    {% endif %}
   </div>
 </div>
 
-<!-- Pop Up Delete -->
+<!-- Delete Confirmation Modal -->
 <div id="deleteModal" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
   <div class="bg-white rounded-xl shadow-lg w-full max-w-md p-6">
     <h2 class="text-lg font-bold text-red-700 mb-2">WARNING!</h2>
@@ -95,12 +104,113 @@
         class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 font-medium">
         Cancel
       </button>
-
-      <a href="{% url 'main:delete_product' product.id %}" 
+      <a id="confirm-delete-link" href="#" 
          class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 font-medium">
         Delete
       </a>
     </div>
   </div>
 </div>
+
+<script>
+// Configuration
+const PRODUCT_ID = "{{ product.id }}";
+const PRODUCT_DETAIL_ENDPOINT = `{% url 'main:show_json_by_id' '00000000-0000-0000-0000-000000000000' %}`.replace('00000000-0000-0000-0000-000000000000', PRODUCT_ID);
+const CURRENT_USER_ID = "{{ user.id|default_if_none:'' }}";
+
+// DOM Elements
+const loadingState = document.getElementById('loading-state');
+const errorState = document.getElementById('error-state');
+const articleContent = document.getElementById('article-content');
+const featuredImage = document.getElementById('featured-image');
+const badgesContainer = document.getElementById('badges-container');
+const articleName = document.getElementById('article-name');
+const articlePrice = document.getElementById('article-price');
+const articleDescriptionText = document.getElementById('article-description-text');
+const articleAuthor = document.getElementById('article-author');
+const editLink = document.getElementById('edit-link');
+const confirmDeleteLink = document.getElementById('confirm-delete-link');
+const deleteButton = document.getElementById('delete-button');
+
+// Utility Functions
+function showState(state) {
+  loadingState.classList.toggle('hidden', state !== 'loading');
+  errorState.classList.toggle('hidden', state !== 'error');
+  articleContent.classList.toggle('hidden', state !== 'ready');
+}
+
+function getCategoryLabel(categoryCode) {
+  const map = { jersey: 'Jersey', shoes: 'Shoes', cap: 'Cap', ball: 'Ball', socks: 'Socks' };
+  return map[categoryCode] || categoryCode;
+}
+
+// Render Function
+function renderArticle(product) {
+  document.title = `${product.name} - Penaltee`;
+  articleName.textContent = product.name;
+  articlePrice.textContent = `Rp${product.price}`;
+  articleDescriptionText.textContent = product.description;
+  articleAuthor.textContent = product.user_username || 'Anonymous';
+
+  // Badges
+  badgesContainer.innerHTML = '';
+  if (product.is_featured) {
+    const featured = document.createElement('span');
+    featured.className = 'inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-yellow-100 text-yellow-800';
+    featured.textContent = 'Featured';
+    badgesContainer.appendChild(featured);
+  }
+  const category = document.createElement('span');
+  category.className = 'inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-green-600 text-white';
+  category.textContent = getCategoryLabel(product.category);
+  badgesContainer.appendChild(category);
+
+  // Image
+  if (product.thumbnail) {
+    featuredImage.src = product.thumbnail;
+    featuredImage.alt = product.name;
+  }
+
+  // Button links
+  editLink.href = `{% url 'main:edit_product' '00000000-0000-0000-0000-000000000000' %}`.replace(
+    '00000000-0000-0000-0000-000000000000',
+    product.id
+  );
+  confirmDeleteLink.href = `{% url 'main:delete_product' '00000000-0000-0000-0000-000000000000' %}`.replace(
+    '00000000-0000-0000-0000-000000000000',
+    product.id
+  );
+
+  // Only show edit/delete if current user owns it
+  if (CURRENT_USER_ID && Number(CURRENT_USER_ID) === Number(product.user_id)) {
+    editLink.classList.remove('hidden');
+    deleteButton.classList.remove('hidden');
+  } else {
+    editLink.classList.add('hidden');
+    deleteButton.classList.add('hidden');
+  }
+}
+
+// Fetch Data
+async function loadProductDetail() {
+  try {
+    showState('loading');
+    const res = await fetch(PRODUCT_DETAIL_ENDPOINT);
+    if (!res.ok) throw new Error('Fetch failed');
+    const product = await res.json();
+    renderArticle(product);
+    showState('ready');
+    showToast("Success", "Product details loaded successfully.", "success");
+
+  } catch (err) {
+    console.error(err);
+    showState('error');
+    showToast("Error", "Failed to load product details. Please try again later.", "error");
+  }
+}
+
+
+loadProductDetail();
+</script>
+{% include 'toast.html' %}
 {% endblock content %}

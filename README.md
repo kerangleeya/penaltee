@@ -211,3 +211,37 @@ Afterward, I designed a navigation bar by creating a navbar.html file in the tem
 To configure static files, I added the WhiteNoise middleware in settings.py right below SecurityMiddleware, which enables Django to serve static files in production. I also set up the STATIC_URL, STATICFILES_DIRS, and STATIC_ROOT variables. Then, I created a 'static' folder in the root directory with a 'css' subfolder. In the css folder, I placed a global.css file for custom styles. This stylesheet was linked in base.html so its rules could be applied throughout the templates.
 
 Finally, I explored CSS and HTML by finding resources online to deepen my understanding and then applied that knowledge to design each page of my application.
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Assignment 6
+
+
+1. What is the difference between synchronous request and asynchronous request?
+
+A synchronous response is a type of request where the user must wait for the server to finish processing and send back a response before continuing with the next action. This means the website is temporarily blocked until the response arrives, which can make it feel slower if the server takes time to respond. On the other hand, an asynchronous request allows the user to continue running other tasks while waiting for the server’s response. The request is handled in the background, so when the response arrives, the application updates without interrupting the user’s interaction. Thus, asynchronous requests are more efficient and user-friendly.
+
+
+2. How does AJAX work in Django (request–response flow)?
+
+AJAX in Django enables dynamic updates to web pages without requiring a full page reload. The AJAX request–response flow in Django starts when a user does an interaction/action on the web page, like clicking a button or submitting a form. This action triggers JavaScript to send an AJAX request to the Django server without reloading the page. On the server side, the request is sent to a Django view, which processes the data. For example, by saving it to the database or fetching information. Instead of returning a full HTML page, the view sends back a JSON response using 'JsonResponse'. Finally, the browser’s JavaScript receives the response, reads the JSON data, and updates only the necessary part of the web page. This makes the website feel faster and more interactive, since the whole page doesn’t need to reload.
+
+
+3. What are the advantages of using AJAX compared to regular rendering in Django?
+
+AJAX in Django offers several advantages over regular full page rendering. AJAX allows only specific parts of a web page to be updated without reloading the entire page, which makes interactions faster and smoother. This reduces waiting time for users and creates a more dynamic app experience. AJAX also usually sends and receives smaller amounts of data in JSON format, which reduces server load compared to re-rendering complete HTML pages. Overall, AJAX improves performance, enhances user experience, and makes web applications feel more responsive and efficient.
+
+
+4. How do you ensure security when using AJAX for Login and Register features in Django?
+
+To ensure security when using AJAX for login and registration in Django, the first important step is to protect against CSRF attacks. Django provides built-in CSRF protection, and when making AJAX POST requests, the CSRF token must be included in the request headers or form data. Additionally, using HTTPS ensures that all sensitive information, such as usernames and passwords, is securely encrypted while being sent between the client and server. This prevents attackers from intercepting user credentials during transmission. 
+
+Validating all input data on the server is another crucial procedure, even if client-side validation is already in place. This helps prevent malicious users from bypassing security checks or injecting harmful data. It’s also important to rely on Django’s built-in authentication and session management, which securely handles user sessions and cookies. Finally, only provide information that is both required and secure when returning AJAX answers, not revealing any private information like usernames or database faults. These steps ensure that the AJAX-based login and registration features remain secure and trustworthy.
+
+
+5. How does AJAX affect user experience (UX) on websites?
+
+User experience (UX) is the overall feeling a user gets from a product or service, which includes how easy it is to use, how relevant and high-quality the content is, and how comfortable and satisfied they are. Poor UX can frustrate users and drive them away, whereas good UX is easy to use, effective, and enjoyable.
+
+AJAX greatly improves the UX on websites by making interactions faster, smoother, and more responsive. Instead of reloading the entire page every time a user performs an action, AJAX updates only the parts of the page that need to change. This means users can see updates instantly without waiting for a full page refresh, such as new comments, search results, or notifications. As a result, the website feels more dynamic, creating a more seamless browsing experience. Since AJAX allows background data loading, users can continue interacting with the site while new information is being processed. This reduces waiting time and keeps the interface consistent, which makes the site feel more efficient and user-friendly. In conclusion, AJAX enhances UX by increasing speed, reducing interruptions, and providing a more interactive and engaging experience.
