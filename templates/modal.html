@@ -85,3 +85,69 @@
     </div>
   </div>
 </div>
+
+<script>
+let isSubmitting = false;
+
+function showModal() {
+  const modal = document.getElementById('crudModal');
+  const modalContent = document.getElementById('crudModalContent');
+
+  modal.classList.remove('hidden');
+  setTimeout(() => {
+    modalContent.classList.remove('opacity-0', 'scale-95');
+    modalContent.classList.add('opacity-100', 'scale-100');
+  }, 50);
+}
+
+function hideModal() {
+  const modal = document.getElementById('crudModal');
+  const modalContent = document.getElementById('crudModalContent');
+
+  modalContent.classList.remove('opacity-100', 'scale-100');
+  modalContent.classList.add('opacity-0', 'scale-95');
+  setTimeout(() => {
+    modal.classList.add('hidden');
+    document.getElementById('productForm').reset();
+  }, 150);
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("productForm");
+  const submitButton = document.getElementById("submitProduct");
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    if (isSubmitting) return;
+    isSubmitting = true;
+
+    submitButton.disabled = true;
+    submitButton.textContent = "Publishing...";
+
+    const formData = new FormData(form);
+    formData.append("csrfmiddlewaretoken", document.querySelector("[name=csrfmiddlewaretoken]").value);
+
+    try {
+      const response = await fetch("{% url 'main:add_product_entry_ajax' %}", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        hideModal();
+        showToast("Product Created", "Your product has been added successfully.", "success");
+        document.dispatchEvent(new CustomEvent('productChanged', { detail: { source: 'create' } }));
+      } else {
+        showToast("Error", "Failed to create product.", "error");
+      }
+    } catch (error) {
+      console.error("Error creating product:", error);
+      showToast("Error", "Network error. Please try again.", "error");
+    } finally {
+      isSubmitting = false;
+      submitButton.disabled = false;
+      submitButton.textContent = "Publish Product";
+    }
+  });
+});
+</script>

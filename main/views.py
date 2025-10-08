@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.utils.html import strip_tags
+import json
 
 
 @login_required(login_url='/login')
@@ -141,6 +142,7 @@ def logout_user(request):
     logout(request)
     response = HttpResponseRedirect(reverse('main:login'))
     response.delete_cookie('last_login')
+    messages.success(request, "Logged out successfully.")
     return response
 
 def edit_product(request, id):
@@ -183,3 +185,61 @@ def add_product_entry_ajax(request):
     new_product.save()
 
     return HttpResponse(b"CREATED", status=201)
+
+@csrf_exempt
+@require_POST
+def edit_product_ajax(request, id):
+    try:
+        product = get_object_or_404(Product, pk=id)
+        data = json.loads(request.body)
+
+        name = data.get('name', '').strip()
+        description = data.get('description', '').strip()
+        price = data.get('price')
+        category = data.get('category', '').strip()
+        thumbnail = data.get('thumbnail', '').strip()
+        is_featured = data.get('is_featured', False)
+
+        if not name or not description or not price or not category:
+            return JsonResponse({
+                'success': False,
+                'error': 'Name, description, price, and category are required.'
+            }, status=400)
+
+        try:
+            price = float(price)
+            if price < 0:
+                raise ValueError
+        except ValueError:
+            return JsonResponse({
+                'success': False,
+                'error': 'Price must be a positive number.'
+            }, status=400)
+
+        product.name = name
+        product.description = description
+        product.price = price
+        product.category = category
+        product.thumbnail = thumbnail
+        product.is_featured = is_featured
+        product.save()
+
+        return JsonResponse({
+            'success': True,
+            'message': 'Product updated successfully.',
+            'product': {
+                'id': str(product.id),
+                'name': product.name,
+                'price': product.price,
+                'description': product.description,
+                'category': product.category,
+                'thumbnail': product.thumbnail,
+                'is_featured': product.is_featured,
+                'user_id': product.user_id,
+            }
+        })
+
+    except Product.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Product not found.'}, status=404)
+    except json.JSONDecodeError:
+        return JsonResponse({'success': False, 'error': 'Invalid JSON data.'}, status=400)
