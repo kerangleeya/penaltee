@@ -133,7 +133,7 @@ def register(request):
                 errors = form.errors.as_json()
                 return JsonResponse({
                     "success": False,
-                    "message": "Please correct the errors below.",
+                    "message": "Username or password is invalid.",
                     "errors": errors
                 }, status=400)
 

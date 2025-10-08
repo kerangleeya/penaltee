@@ -109,7 +109,7 @@ document.getElementById("registerForm").addEventListener("submit", async functio
     }, 1500);
   } else {
     messageBox.className = "mb-4 p-3 rounded bg-red-100 text-red-700";
-    messageBox.textContent = data.message || "Please check your input.";
+    messageBox.textContent = data.message || "Username or password is invalid";
     messageBox.classList.remove("hidden");
     showToast("Registration Failed", "Please check your input and try again.", "error");
   }

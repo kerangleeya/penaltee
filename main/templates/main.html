@@ -3,6 +3,10 @@
 
 {% block meta %}
 <title>Penaltee</title>
+<head><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+</head>
 {% endblock meta %}
 
 {% block content %}
@@ -310,6 +314,12 @@ async function fetchProductFromServer() {
   }
 }
 
+if (allProductData.length === 0) {
+  console.warn("No product data found, reloading...");
+  setTimeout(() => fetchProductFromServer(), 500);
+}
+
+
 function handleShowAllProductClick() { activeFilter = 'all'; filterAndDisplayProduct(); }
 function handleShowMyProductClick() { activeFilter = 'my'; filterAndDisplayProduct(); }
 
@@ -363,6 +373,13 @@ function openDeleteModal(productId) {
 
 function closeDeleteModal(productId) {
   document.getElementById(`deleteModal-${productId}`).classList.add('hidden');
+}
+
+if (!window.productsInitialized) {
+  document.addEventListener("DOMContentLoaded", () => {
+    initializeProductPage();
+    window.productsInitialized = true;
+  });
 }
 
 </script>
