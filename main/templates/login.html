@@ -97,11 +97,17 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
     showToast("Login Error","Failed to login","error");
   }
 });
-</script>
 
 {% if messages %}
-  {% for message in messages %}
-    showToast("{{ message.tags|title }}", "{{ message }}", "success");
-  {% endfor %}
+  window.addEventListener('DOMContentLoaded', () => {
+    {% for message in messages %}
+      setTimeout(() => {
+        showToast("{{ message.tags|title }}", "{{ message|escapejs }}", "success");
+      }, 300);
+    {% endfor %}
+  });
 {% endif %}
+
+</script>
+
 {% endblock content %}

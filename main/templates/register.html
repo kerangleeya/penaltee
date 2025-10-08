@@ -100,8 +100,13 @@ document.getElementById("registerForm").addEventListener("submit", async functio
   if (data.success) {
     messageBox.className = "mb-4 p-3 rounded bg-green-100 text-green-700";
     messageBox.textContent = data.message || "Account created successfully!";
-    showToast("Account Created", "Your account has been successfully registered!", "success");
     messageBox.classList.remove("hidden");
+
+    showToast("Account Created", "Your account has been successfully registered!", "success");
+
+    setTimeout(() => {
+      window.location.href = "{% url 'main:login' %}";
+    }, 1500);
   } else {
     messageBox.className = "mb-4 p-3 rounded bg-red-100 text-red-700";
     messageBox.textContent = data.message || "Please check your input.";

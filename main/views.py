@@ -110,16 +110,34 @@ def show_json_by_id(request, product_id):
     except Product.DoesNotExist:
         return JsonResponse({'detail': 'Not found'}, status=404)
     
+@csrf_exempt
 def register(request):
-    form = UserCreationForm()
+    form = UserCreationForm(request.POST or None)
 
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Your account has been successfully created!')
+
+            if request.headers.get("x-requested-with") == "XMLHttpRequest":
+                return JsonResponse({
+                    "success": True,
+                    "message": "Your account has been successfully created!"
+                })
+            
+            # Otherwise, normal redirect for non-AJAX form
+            messages.success(request, "Your account has been successfully created!")
             return redirect('main:login')
-    context = {'form':form}
+        
+        else:
+            if request.headers.get("x-requested-with") == "XMLHttpRequest":
+                errors = form.errors.as_json()
+                return JsonResponse({
+                    "success": False,
+                    "message": "Please correct the errors below.",
+                    "errors": errors
+                }, status=400)
+
+    context = {'form': form}
     return render(request, 'register.html', context)
 
 def login_user(request):
